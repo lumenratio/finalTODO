@@ -140,7 +140,7 @@ func doneTaskHandler(DBConn *sql.DB) http.HandlerFunc {
 				writeError(w, err.Error(), http.StatusBadRequest)
 				return
 			}
-			writeJson(w, nil)
+			writeJson(w, db.Task{})
 			return
 		}
 
@@ -157,7 +157,7 @@ func doneTaskHandler(DBConn *sql.DB) http.HandlerFunc {
 			return
 		}
 
-		writeJson(w, nil)
+		writeJson(w, db.Task{})
 	}
 }
 
