@@ -20,6 +20,7 @@ func main() {
 	if err != nil {
 		os.Exit(1)
 	}
+	defer db.Close()
 
 	// Http code block
 

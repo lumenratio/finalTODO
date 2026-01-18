@@ -20,6 +20,10 @@ type TasksResp struct {
 	Tasks []*db.Task `json:"tasks"`
 }
 
+type JWTData struct {
+	Token string `json:"token"`
+}
+
 func writeError(w http.ResponseWriter, message string, code int) {
 	jerr := ErrorResp{Error: message}
 	logger.Err.Println(jerr.Error)
@@ -28,6 +32,10 @@ func writeError(w http.ResponseWriter, message string, code int) {
 }
 
 func writeJson(w http.ResponseWriter, data any) {
+	if data == nil {
+		w.Write([]byte("{}")) // этот хак - самое быстрое, что смог придумать. Что бы прошли тесты и web клиент
+		return
+	}
 	err := json.NewEncoder(w).Encode(data)
 	if err != nil {
 		logger.Err.Println("failed to encode JSON")
